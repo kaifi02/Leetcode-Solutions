@@ -1,0 +1,77 @@
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes
+(i.e., only nodes themselves may be changed.)
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4]
+Output: [2,1,4,3]
+Example 2:
+
+Input: head = []
+Output: []
+Example 3:
+
+Input: head = [1]
+Output: [1]
+ 
+
+Constraints:
+
+The number of nodes in the list is in the range [0, 100].
+0 <= Node.val <= 100
+
+SOLUTION:
+
+CODE in C:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* swapPairs(struct ListNode* head){
+ struct ListNode *p,*q,*temp;
+ if(head==NULL||head->next==NULL)
+ {
+     return head;
+ }
+ q=head;
+ p=head->next;
+ temp=head;
+ while(p)
+ {
+    if(q==head)
+    {
+        q->next=p->next;
+        p->next=q;
+        head=p;
+        temp=p;
+        p=q;
+        q=temp;
+    }
+    else
+    {
+        q->next=p->next;
+        p->next=q;
+        temp->next=p;
+        temp=p;
+        p=q;
+        q=temp;
+    }
+    if(p->next!=NULL)
+    {
+        q=q->next->next;
+        p=p->next->next;
+        temp=temp->next;
+    }
+    else
+    {
+        p=p->next;
+    }
+ }
+ return head;
+}
